@@ -34,7 +34,8 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['email']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -44,6 +45,12 @@ class ReviewSerializer(serializers.ModelSerializer):
         list_serializers_class = FilterReviewListSerializer
         model = Review
         fields = ('name', 'text', 'children')
+
+
+# class ReviewUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Review
+#         fields = "__all__"
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -75,9 +82,9 @@ class CreateRatingSerializer(serializers.ModelSerializer):
         fields = ("star", "movie")
 
     def create(self, validated_data):
-        rating, _ = Rating.objects.update_or_create(
+        ratings, _ = Rating.objects.update_or_create(
             ip=validated_data.get('ip', None),
             movie=validated_data.get('movie', None),
             defaults={'star': validated_data.get("star")}
         )
-        return rating
+        return ratings

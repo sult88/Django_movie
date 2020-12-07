@@ -20,9 +20,9 @@ class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
 
 
 class MovieFilter(filters.FilterSet):
-    genres = CharFilterInFilter(field_name='genres__name', lookup_expr='in')
+    # genres = CharFilterInFilter(field_name='genres__name', lookup_expr='in')
     year = filters.RangeFilter()
 
     class Meta:
         model = Movie
-        fields = ['genres', 'year']
+        fields = ['year']
